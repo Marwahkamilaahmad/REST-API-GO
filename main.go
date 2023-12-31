@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main(){
+func restapi(){
 
 	r := gin.Default();
 	models.ConnectDatabase()
