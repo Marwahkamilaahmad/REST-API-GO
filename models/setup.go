@@ -13,7 +13,14 @@ func ConnectDatabase(){
 	if err != nil{
 		panic(err)
 	}
-	database.AutoMigrate(&Product{})
+	if err := database.AutoMigrate(&Pasien{}); err != nil {
+		panic(err)
+	}
+
+	// Melakukan migrasi tabel RumahSakit
+	if err := database.AutoMigrate(&RumahSakit{}); err != nil {
+		panic(err)
+	}
 
 	DB = database
 }

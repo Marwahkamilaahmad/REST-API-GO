@@ -1,84 +1,84 @@
 package controllers
 
-import (
-	"encoding/json"
-	"net/http"
+// import (
+// 	"encoding/json"
+// 	"net/http"
 
-	"github.com/Marwahkamilaahmad/go-rest-api.git/models"
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
-)
+// 	"github.com/Marwahkamilaahmad/go-rest-api.git/models"
+// 	"github.com/gin-gonic/gin"
+// 	"gorm.io/gorm"
+// )
 
-func Index(c *gin.Context){
-	var products []models.Product
+// func Index(c *gin.Context){
+// 	var products []models.Product
 
-	models.DB.Find(&products)
-	c.JSON(http.StatusOK, gin.H{"products" : products})
+// 	models.DB.Find(&products)
+// 	c.JSON(http.StatusOK, gin.H{"products" : products})
 
-}
-func Show(c *gin.Context){
-	var product models.Product
-	id := c.Param("id")
+// }
+// func Show(c *gin.Context){
+// 	var product models.Product
+// 	id := c.Param("id")
 
-	if err := models.DB.First(&product, id).Error; err != nil {
-		switch err {
-		case gorm.ErrRecordNotFound:
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message" : "Data tidak ditemukan"})
-			return
-			default :
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message" : err.Error()})
-			return
-		}
-	}
-	c.JSON(http.StatusOK, gin.H{"product" : product})
+// 	if err := models.DB.First(&product, id).Error; err != nil {
+// 		switch err {
+// 		case gorm.ErrRecordNotFound:
+// 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message" : "Data tidak ditemukan"})
+// 			return
+// 			default :
+// 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message" : err.Error()})
+// 			return
+// 		}
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"product" : product})
 
-}
-func Create(c *gin.Context){
-	var product models.Product
+// }
+// func Create(c *gin.Context){
+// 	var product models.Product
 
-	if err := c.ShouldBindJSON(&product); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
-		return
-	}
+// 	if err := c.ShouldBindJSON(&product); err != nil {
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
+// 		return
+// 	}
 
-	models.DB.Create(&product)
-	c.JSON(http.StatusOK, gin.H{"product" : product})
+// 	models.DB.Create(&product)
+// 	c.JSON(http.StatusOK, gin.H{"product" : product})
 
-}
-func Update(c *gin.Context){
-	var product models.Product
-	id := c.Param("id")
+// }
+// func Update(c *gin.Context){
+// 	var product models.Product
+// 	id := c.Param("id")
 
-	if err := c.ShouldBindJSON(&product); err != nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
-		return
-	}
+// 	if err := c.ShouldBindJSON(&product); err != nil{
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
+// 		return
+// 	}
 
-	if models.DB.Model(&product).Where("id = ?", id).Updates(&product).RowsAffected == 0 {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : "tidak dapat diperbarui"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message" : "berhasil memperbarui data"})
+// 	if models.DB.Model(&product).Where("id = ?", id).Updates(&product).RowsAffected == 0 {
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : "tidak dapat diperbarui"})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"message" : "berhasil memperbarui data"})
 
-}
-func Delete(c *gin.Context){
-	var product models.Product
+// }
+// func Delete(c *gin.Context){
+// 	var product models.Product
 
-	var input struct {
-		Id json.Number
-	}
+// 	var input struct {
+// 		Id json.Number
+// 	}
 
-	if err := c.ShouldBindJSON(&input); err != nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
-		return
-	}
-	id, _ := input.Id.Int64()
+// 	if err := c.ShouldBindJSON(&input); err != nil{
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
+// 		return
+// 	}
+// 	id, _ := input.Id.Int64()
 
-	if models.DB.Delete(&product, id).RowsAffected==0{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message":"tidak dapat menghapus data"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message": "data berhasil dihapus"})
+// 	if models.DB.Delete(&product, id).RowsAffected==0{
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message":"tidak dapat menghapus data"})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"message": "data berhasil dihapus"})
 
-}
+// }
 
