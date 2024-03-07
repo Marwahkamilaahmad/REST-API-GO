@@ -7,7 +7,7 @@ type Product struct {
 }
 
 type Pasien struct{
-	Id int64 `gorm:"primaryKey" json:"id"`
+	Id int64 `gorm:"type:bigint;primaryKey" json:"id"`
 	NamaPasien string `gorm:"type:varchar(300)" json:"nama_pasien"`
 	Usia int64 `gorm:"type:varchar(300)" json:"usia"`
 	JenisKelamin string `gorm:"type:varchar(300)" json:"jenis_kelamin"`
@@ -18,7 +18,7 @@ type Pasien struct{
 }
 
 type RumahSakit struct{
-	Id int64 `gorm:"primaryKey" json:"id"`
+	Id int64 `gorm:"type:bigint;primaryKey" json:"id"`
 	Nama string `gorm:"type:varchar(300)" json:"nama"`
 	Alamat string `gorm:"type:text" json:"alamat"`
 	KodePos string `gorm:"type:varchar(300)" json:"kode_pos"`

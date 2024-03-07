@@ -15,13 +15,13 @@ func main(){
 	r.GET("/api/pasien/:id", controllers.Show)
 	r.POST("/api/pasien", controllers.Create)
 	r.PUT("/api/pasien/:id", controllers.Update)
-	r.DELETE("/api/pasien", controllers.Delete)
+	// r.DELETE("/api/pasien", controllers.Delete)
 
 	r.GET("/api/rumahsakit", controllers.IndexRS)
 	r.GET("/api/rumahsakit/:id", controllers.ShowRS)
 	r.POST("/api/rumahsakit", controllers.CreateRS)
 	r.PUT("/api/rumahsakit/:id", controllers.UpdateRS)
-	r.DELETE("/api/rumahsakit", controllers.DeleteRS)
+	// r.DELETE("/api/rumahsakit", controllers.DeleteRS)
 
 	r.Run()
 }

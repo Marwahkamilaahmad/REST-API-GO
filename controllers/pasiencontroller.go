@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/Marwahkamilaahmad/go-rest-api.git/models"
@@ -62,24 +61,23 @@ func Update(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"message" : "berhasil memperbarui data"})
 
 }
-func Delete(c *gin.Context){
-	var pasien models.Pasien
+// func Delete(c *gin.Context){
+// 	var pasien models.Pasien
 
-	var input struct {
-		Id json.Number
-	}
+// 	var input struct {
+// 		Id int64 `json:"id"`
+// 	}
 
-	if err := c.ShouldBindJSON(&input); err != nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
-		return
-	}
-	id, _ := input.Id.Int64()
+// 	if err := c.ShouldBindJSON(&input); err != nil{
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
+// 		return
+// 	}
 
-	if models.DB.Delete(&pasien, id).RowsAffected==0{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message":"tidak dapat menghapus data"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message": "data berhasil dihapus"})
+// 	if models.DB.Delete(&pasien, input.Id).RowsAffected==0{
+// 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message":"tidak dapat menghapus data"})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"message": "data berhasil dihapus"})
 
-}
+// }
 
