@@ -10,17 +10,17 @@ import (
 )
 
 func IndexRS(c *gin.Context){
-	var pasien []models.Pasien
+	var rumahSakit []models.RumahSakit
 
-	models.DB.Find(&pasien)
-	c.JSON(http.StatusOK, gin.H{"pasien" : pasien})
+	models.DB.Find(&rumahSakit)
+	c.JSON(http.StatusOK, gin.H{"rumahSakit" : rumahSakit})
 
 }
 func ShowRS(c *gin.Context){
-	var pasien models.Pasien
+	var rumahSakit models.RumahSakit
 	id := c.Param("id")
 
-	if err := models.DB.First(&pasien, id).Error; err != nil {
+	if err := models.DB.First(&rumahSakit, id).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message" : "Data tidak ditemukan"})
@@ -30,32 +30,32 @@ func ShowRS(c *gin.Context){
 			return
 		}
 	}
-	c.JSON(http.StatusOK, gin.H{"pasien" : pasien})
+	c.JSON(http.StatusOK, gin.H{"rumahSakit" : rumahSakit})
 
 }
 
 func CreateRS(c *gin.Context){
-	var pasien models.Pasien
+	var rumahSakit models.RumahSakit
 
-	if err := c.ShouldBindJSON(&pasien); err != nil {
+	if err := c.ShouldBindJSON(&rumahSakit); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
 		return
 	}
 
-	models.DB.Create(&pasien)
-	c.JSON(http.StatusOK, gin.H{"pasien" : pasien})
+	models.DB.Create(&rumahSakit)
+	c.JSON(http.StatusOK, gin.H{"rumahSakit" : rumahSakit})
 
 }
 func UpdateRS(c *gin.Context){
-	var pasien models.Pasien
+	var rumahSakit models.RumahSakit
 	id := c.Param("id")
 
-	if err := c.ShouldBindJSON(&pasien); err != nil{
+	if err := c.ShouldBindJSON(&rumahSakit); err != nil{
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : err.Error()})
 		return
 	}
 
-	if models.DB.Model(&pasien).Where("id = ?", id).Updates(&pasien).RowsAffected == 0 {
+	if models.DB.Model(&rumahSakit).Where("id = ?", id).Updates(&rumahSakit).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message" : "tidak dapat diperbarui"})
 		return
 	}
@@ -63,7 +63,7 @@ func UpdateRS(c *gin.Context){
 
 }
 func DeleteRS(c *gin.Context){
-	var pasien models.Pasien
+	var rumahSakit models.RumahSakit
 
 	var input struct {
 		Id json.Number
@@ -75,7 +75,7 @@ func DeleteRS(c *gin.Context){
 	}
 	id, _ := input.Id.Int64()
 
-	if models.DB.Delete(&pasien, id).RowsAffected==0{
+	if models.DB.Delete(&rumahSakit, id).RowsAffected==0{
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message":"tidak dapat menghapus data"})
 		return
 	}
