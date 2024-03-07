@@ -9,14 +9,14 @@ import (
 	"gorm.io/gorm"
 )
 
-func Index(c *gin.Context){
+func IndexRS(c *gin.Context){
 	var pasien []models.Pasien
 
 	models.DB.Find(&pasien)
 	c.JSON(http.StatusOK, gin.H{"pasien" : pasien})
 
 }
-func Show(c *gin.Context){
+func ShowRS(c *gin.Context){
 	var pasien models.Pasien
 	id := c.Param("id")
 
@@ -34,7 +34,7 @@ func Show(c *gin.Context){
 
 }
 
-func Create(c *gin.Context){
+func CreateRS(c *gin.Context){
 	var pasien models.Pasien
 
 	if err := c.ShouldBindJSON(&pasien); err != nil {
@@ -46,7 +46,7 @@ func Create(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"pasien" : pasien})
 
 }
-func Update(c *gin.Context){
+func UpdateRS(c *gin.Context){
 	var pasien models.Pasien
 	id := c.Param("id")
 
@@ -62,7 +62,7 @@ func Update(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"message" : "berhasil memperbarui data"})
 
 }
-func Delete(c *gin.Context){
+func DeleteRS(c *gin.Context){
 	var pasien models.Pasien
 
 	var input struct {
