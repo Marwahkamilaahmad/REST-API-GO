@@ -9,13 +9,18 @@ import (
 func main(){
 
 	r := gin.Default();
+
 	models.ConnectDatabase()
 
-	r.GET("/api/pasien", controllers.Index)
-	r.GET("/api/pasien/:id", controllers.Show)
-	r.POST("/api/pasien", controllers.Create)
-	r.PUT("/api/pasien/:id", controllers.Update)
-	// r.DELETE("/api/pasien", controllers.Delete)
+	db := models.DB
+
+	pasienController := controllers.NewPasienController(db)
+
+	r.GET("/api/pasien",pasienController.GetPatients)
+	r.GET("/api/pasien/:id", pasienController.GetPatient)
+	r.POST("/api/pasien", pasienController.CreatePatient)
+	r.PUT("/api/pasien/:id", pasienController.UpdatePatient)
+	r.DELETE("/api/pasien", pasienController.DeletePatient)
 
 	r.GET("/api/rumahsakit", controllers.IndexRS)
 	r.GET("/api/rumahsakit/:id", controllers.ShowRS)
